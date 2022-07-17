@@ -1,24 +1,51 @@
+class Dot:
+    neighbours = []
+
+    def __init__(self, i, j):
+        self.i = i
+        self.j = j
+
+    def connectDot(self, neighbour, c):
+        self.neighbours.append([neighbour, c])
+
 
 class Player:
-    def __init__(self, _name, _squares):
-        self.name = _name
-        self.squares = _squares
+    points = 0
 
-    def number_of_squares(self):
-        print(self.squares);
+    def __init__(self, c):
+        self.color = c
 
-class Playground:
-    def __init__(self, _row, _column):
-        self.row = _row
-        self.column = _column
-
-    def show_play_ground(self):
-        for i in range():
-            print(i);
+    def addPoint(self):
+        self.points += 1
 
 
+class Ground:
+    dots = []
+    lines = set()
 
-p1 = Player('Bob', 10)
-p1.number_of_squares()  # Prints: Hello, my name is Bob and I am 25 years old!
+    def __init__(self, m, k):
+        self.m = m
+        self.k = k
+
+        for i in range(m):
+            for j in range(k):
+                self.dots.append(Dot(i, j))
+
+    def drawLine(self, m1, m2, k1, k2, c):
+        for dot in self.dots:
+            if (dot.i == m1 and dot.j == k1):
+                for neighbour in self.dots:
+                    if (neighbour.i == m2 and neighbour.j == k2):
+                        dot.connectDot(neighbour, c)
+                        neighbour.connectDot(dot, c)
+                        self.lines.add({dot, neighbour, c})
 
 
+n = int(input('number of playes: '))
+m, k = int(input('ground dimensions').split())
+
+ground = Ground(m, k)
+
+players = []
+for i in range(n):
+    players.append(Player(i+1))
