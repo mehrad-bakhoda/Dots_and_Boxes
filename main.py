@@ -44,7 +44,7 @@ class Ground:
         dot = self.dots[m1][k1]
         neighbour = self.dots[m2][k2]
 
-        if (not(Line(dot, neighbour, c) in self.lines) and not(Line(neighbour, dot, c) in self.lines)):
+        if not(Line(dot, neighbour, c) in self.lines) and not(Line(neighbour, dot, c) in self.lines):
             dot.connectDot(neighbour, c)
             neighbour.connectDot(dot, c)
             self.lines.add(Line(dot, neighbour, c))
